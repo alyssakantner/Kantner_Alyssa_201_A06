@@ -94,8 +94,10 @@ Extract the value `8162` (LeBron James points) in 2 different ways:
 -   using names
 
 ```{r}
+#extract value via indexing
 player_info[[2]][4]
-player_info[["LJ"]]["points"]
+#extract value via names
+player_info$LJ$points
 
 ```
 
@@ -106,8 +108,10 @@ Add a new named element to the end of each player's list called `height`. The he
 Print the `player_info` list to prove you were successful.
 
 ```{r}
+#create vector with player heights
 vec_height <- c(78, 81, 78, 86, 85)
 
+#loop through and add each height to the player list
 for(i in 1:length(player_info)){
   player_info[[i]]$height <- vec_height[i]
 }
@@ -131,10 +135,12 @@ Hint: initialize an empty list
 Note: this must still run correctly even if the values were to change or if another player were added to the list or if the player order changed.
 
 ```{r}
-
+#initialize an empty list
 points_per_game <- list()
 
+#loop through the players
 for(player in names(player_info)){
+  #calculate each player's points per game
   points_per_game[player] <- player_info[[player]][[4]] / player_info[[player]][[3]]
 }
 
@@ -148,7 +154,7 @@ Use the list created in Part c and an appropriate apply function to round each v
 Store the output as a vector and print the results.
 
 ```{r}
-
+#use sapply to round points per game to two decimal places
 ppg_rounded <- sapply(points_per_game, function(x) round(x, 2))
 
 ppg_rounded
@@ -173,12 +179,14 @@ ie: 91 rounds to 90; 173 rounds to 200; 1450 rounds to 1000
 Hint: use `MARGIN = 1:2` to apply the function to each value instead of only a row/col.
 
 ```{r}
-
+#create rounding function
 rounding <- function(x){
+  #round to appropriate number of digits
   round(x, digits = -(nchar(x) - 1))
   
 }
 
+#use apply to round matrix
 mat_rand <- apply(mat_rand, 1:2, function(x) rounding(x))
 
 mat_rand
@@ -205,10 +213,14 @@ max_temps <- read_tsv("state_max_temps.tsv") |>
 Calculate the average temperature for each month across the whole data frame (using the data for all three states together).
 
 ```{r}
+#initialize vector
 temp_vec <- c()
 
+#loop through each column starting at 3
 for(element in 3:ncol(max_temps)){
+  #calculate the average temperature in each column
   avg_temp <- (sum(max_temps[ ,element]))/ nrow(max_temps)
+  #add this average to a list
   temp_vec <- append(temp_vec, avg_temp)
 }
 
@@ -227,8 +239,11 @@ Create three new data frames by slicing the data by state.
 No need to print any output here.
 
 ```{r}
+#take only colorado data
 colorado <- max_temps[max_temps$state == "CO", ]
+#take only ohio data
 ohio <- max_temps[max_temps$state == "OH", ]
+#take only virginia data
 virginia <- max_temps[max_temps$state == "VA", ]
 
 ```
@@ -250,16 +265,20 @@ Example (this is NOT the answer just an example of what goes in the {}):
 Note: This code should still run successfully even if the numbers were to change.
 
 ```{r}
-
+#create vector that takes medians of each column
 median_vec <- apply(colorado[-1:-2], 1, median)
 
+#find the year that the max median occurs at
 max_year <- which.max(median_vec)
+#find the value of the max median
 max_median <- max(median_vec)
 
+#find the year that the min median occurs at
 min_year <- which.min(median_vec)
+#find the value of the max median
 min_median <- min(median_vec)
 
-
+#print final statement
 print(paste0("The maximum median annual temperature of ", max_median, " occurred in ", colorado[max_year, 2], " and the minimum median annual temperature of ", min_median, " occurred in ", colorado[min_year,2], "."))
 
 
@@ -274,15 +293,19 @@ Example: The number 312 would return 6 (3 + 1 + 2)
 Run your function with 935068.
 
 ```{r}
+#create function
 sum_of_digits <- function(n){
   digit_count <- n %% 10
+  #check if we have run through every digit
   if(n ==0 ){
     return(0)
   }else{
+    #add each of the digits together
     return(digit_count + sum_of_digits(n %/% 10))
   }
 }
 
+#use function
 sum_of_digits(935068)
 
 ```
