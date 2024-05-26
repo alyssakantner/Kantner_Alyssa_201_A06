@@ -48,7 +48,7 @@ To get full credit for this Question you must:
 
 ## Github Repo Link
 
-[https://your-github-repo-url](https://your-github-repo-url)
+[https://github.com/alyssakantner/Kantner_Alyssa_201_A06](https://github.com/alyssakantner/Kantner_Alyssa_201_A06)
 
 :::
 
@@ -56,7 +56,7 @@ To get full credit for this Question you must:
 
 ## Screenshot/image of RStudio
 
-![](filepath.png)
+![](github_setup.png)
 
 :::
 
@@ -102,6 +102,8 @@ Extract the value `8162` (LeBron James points) in 2 different ways:
 - using names
 
 ```{r}
+player_info[[2]][4]
+player_info[["LJ"]]["points"]
 
 ```
 
@@ -113,6 +115,13 @@ Add a new named element to the end of each player's list called `height`. The he
 Print the `player_info` list to prove you were successful.
 
 ```{r}
+vec_height <- c(78, 81, 78, 86, 85)
+
+for(i in 1:length(player_info)){
+  player_info[[i]]$height <- vec_height[i]
+}
+
+player_info
 
 ```
 
@@ -143,6 +152,8 @@ Use the list created in Part c and an appropriate apply function to round each v
 Store the output as a vector and print the results.
 
 ```{r}
+round()
+
 
 ```
 
@@ -155,6 +166,7 @@ Consider the matrix `mat_rand` of random numbers below.
 rand_num <- c(sample(10:100, 10), sample(100:999, 10), sample(1000:2000, 10))
 
 mat_rand <- matrix(sample(rand_num, 30), ncol = 5)
+mat_rand
 ```
 
 Use an appropriate apply function to round values with 2 digits to the nearest tens, values with 3 digits to the nearest hundreds, and 4 digits to the nearest thousands.
@@ -164,6 +176,22 @@ ie: 91 rounds to 90; 173 rounds to 200; 1450 rounds to 1000
 Hint: use `MARGIN = 1:2` to apply the function to each value instead of only a row/col.
 
 ```{r}
+mat_rand
+
+rounding <- function(x){
+  for(i in 1:nrow(mat_rand)){
+    for(j in 1:ncol(mat_rand)){
+      if(nchar(as.integer(mat_rand[i,j])) == 2){
+        mat_rand[i,j] <- round(mat_rand[i,j], 10)
+      }
+    
+  }
+  
+  }
+  return(mat_rand)
+}
+
+rounding(mat_rand)
 
 ```
 
@@ -237,6 +265,19 @@ Example: The number 312 would return 6 (3 + 1 + 2)
 Run your function with 935068.
 
 ```{r}
+sum_of_digits <- function(x){
+  character1 <- as.character(x)
+  strsplit(character1, "")
+  print(character1)
+  for(i in 1:length(x)){
+    
+  }
+  return(character1)
+}
+
+sum_of_digits(312)
+
+
 
 ```
 
