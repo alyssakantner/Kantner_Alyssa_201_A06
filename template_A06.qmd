@@ -206,6 +206,12 @@ Calculate the average temperature for each month across the whole data frame (us
 
 ```{r}
 
+for(element in 3:ncol(max_temps)){
+  avg_temp <- sum(max_temps[ ,element])
+}
+
+avg_temp
+
 ```
 
 ### Part b (2 points)
@@ -219,6 +225,9 @@ Create three new data frames by slicing the data by state.
 No need to print any output here.
 
 ```{r}
+colorado <- max_temps[max_temps$state == "CO", ]
+ohio <- max_temps[max_temps$state == "OH", ]
+virginia <- max_temps[max_temps$state == "VA", ]
 
 ```
 
@@ -239,6 +248,18 @@ Example (this is NOT the answer just an example of what goes in the {}):
 Note: This code should still run successfully even if the numbers were to change.
 
 ```{r}
+
+median_vec <- apply(colorado[-1:-2], 1, median)
+
+max_year <- which.max(median_vec)
+max_median <- max(median_vec)
+
+min_year <- which.min(median_vec)
+min_median <- min(median_vec)
+
+
+print(paste0("The maximum median annual temperature of ", max_median, " occurred in ", colorado[max_year, 2], " and the minimum median annual temperature of ", min_median, " occurred in ", colorado[min_year,2], "."))
+
 
 ```
 
